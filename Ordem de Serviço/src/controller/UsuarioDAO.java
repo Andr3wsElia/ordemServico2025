@@ -4,6 +4,7 @@
  */
 package controller;
 
+import model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
 import jdbc.ModuloConexao;
 import view.TelaLogin;
 import view.TelaPrincipal;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.awt.HeadlessException;
 
 /**
  *
@@ -19,10 +22,10 @@ import view.TelaPrincipal;
  */
 public class UsuarioDAO {
     
-    private Connection con;
+    private Connection conexao;
     
     public UsuarioDAO(){
-        this.con = ModuloConexao.conectar();
+        this.conexao = ModuloConexao.conectar();
     }
     
     //Metodo efetuaLogin
@@ -33,7 +36,7 @@ public class UsuarioDAO {
             //1 passo - SQLa
             String sql = "select * from tbusuarios where usuario = ? and senha = ?";
             PreparedStatement stmt;
-            stmt = con.prepareStatement(sql);
+            stmt = conexao.prepareStatement(sql);
             stmt.setString(1, usuario);
             stmt.setString(2, senha);
 
@@ -62,6 +65,35 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Erro : " + erro);
         }
 
+    }
+    public void adicionarUsuario(Usuario obj){
+        try{
+            String sql = "insert into tbusuario(iduser,usuario,fone,login,senha,perfil) values(?,?,?,?,?,?)";
+            conexao = ModuloConexao.conectar();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, obj.getIdUser());
+            stmt.setString(2, obj.getUsuario());
+            stmt.setString(3, obj.getFone());
+            stmt.setString(4, obj.getLogin());
+            stmt.setString(5,obj.getSenha());
+            stmt.setString(6, obj.getPerfil());
+            
+            stmt.execute();
+            stmt.close();
+            JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso!");
+            
+        }catch (SQLIntegrityConstraintViolationException el){
+            JOptionPane.showMessageDialog(null,"Login em uso.\nEscolha outro login");
+        }catch (HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null,e);
+        }finally {
+            try{
+                conexao.close();
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+        
     }
     
     

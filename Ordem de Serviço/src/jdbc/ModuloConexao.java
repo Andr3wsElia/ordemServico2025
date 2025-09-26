@@ -26,7 +26,7 @@ public class ModuloConexao {
         //estabelecer a conexão com o banco
         try {
             Class.forName(driver);
-           conexao = DriverManager.getConnection(url, user, senha);
+            conexao = DriverManager.getConnection(url, user, senha);
 //            JOptionPane.showMessageDialog(null,"Conectado com Sucesso!!!");
 //            
 //            System.out.println(conexao);
