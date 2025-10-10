@@ -169,7 +169,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                             .addComponent(jButton2)
                             .addComponent(jButton1)))
                     .addComponent(jButton3))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

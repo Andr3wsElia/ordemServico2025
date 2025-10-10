@@ -44,9 +44,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMnItmServico = new javax.swing.JMenuItem();
         jMnItmUsuario = new javax.swing.JMenuItem();
         jMnRelatorio = new javax.swing.JMenu();
+        jMnRelCliente = new javax.swing.JMenuItem();
         jMnRelServicos = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMnSobre = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMnConfigAltUser = new javax.swing.JMenuItem();
         jMnSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -159,13 +161,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMnRelatorio.setText("Relatório");
         jMnRelatorio.setEnabled(false);
 
-        jMnRelServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMnRelServicos.setText("Cliente");
-        jMnRelatorio.add(jMnRelServicos);
+        jMnRelCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMnRelCliente.setText("Cliente");
+        jMnRelatorio.add(jMnRelCliente);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem5.setText("Serviços");
-        jMnRelatorio.add(jMenuItem5);
+        jMnRelServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMnRelServicos.setText("Serviços");
+        jMnRelServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMnRelServicosActionPerformed(evt);
+            }
+        });
+        jMnRelatorio.add(jMnRelServicos);
 
         jMenuBar2.add(jMnRelatorio);
 
@@ -177,6 +184,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuBar2.add(jMnSobre);
+
+        jMenu1.setMnemonic('g');
+        jMenu1.setText("Configurações");
+
+        jMnConfigAltUser.setText("Alterar Usuário");
+        jMnConfigAltUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMnConfigAltUserActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMnConfigAltUser);
+
+        jMenuBar2.add(jMenu1);
 
         jMnSair.setMnemonic('s');
         jMnSair.setText("Sair");
@@ -235,7 +255,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMnItmUsuarioActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-
+        
     }//GEN-LAST:event_formMouseClicked
 
     private void jMnSobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMnSobreMouseClicked
@@ -260,8 +280,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jMnItmClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnItmClienteActionPerformed
-        // TODO add your handling code here:
+        TelaCliente cliente = new TelaCliente();
+        cliente.setVisible(true);
+        jDesktopPane1.add(cliente);
     }//GEN-LAST:event_jMnItmClienteActionPerformed
+
+    private void jMnConfigAltUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnConfigAltUserActionPerformed
+        TelaLogin tela = new TelaLogin();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMnConfigAltUserActionPerformed
+
+    private void jMnRelServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnRelServicosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMnRelServicosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,12 +338,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLblData;
     public static javax.swing.JLabel jLblUsuario;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenu jMnCadastro;
+    private javax.swing.JMenuItem jMnConfigAltUser;
     private javax.swing.JMenuItem jMnItmCliente;
     private javax.swing.JMenuItem jMnItmServico;
     public static javax.swing.JMenuItem jMnItmUsuario;
+    private javax.swing.JMenuItem jMnRelCliente;
     private javax.swing.JMenuItem jMnRelServicos;
     public static javax.swing.JMenu jMnRelatorio;
     private javax.swing.JMenu jMnSair;

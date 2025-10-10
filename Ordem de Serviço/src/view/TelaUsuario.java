@@ -5,6 +5,8 @@
 package view;
 
 import controller.UsuarioDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.Usuario;
 
@@ -57,6 +59,12 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
         jLabel1.setText("* ID");
 
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("* Nome");
 
         jLabel3.setText("Fone");
@@ -75,6 +83,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         jCheckBox1.setText("Mudar Senha");
 
         jButton1.setText("Pesquisar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("* Campo Obrigatório");
 
@@ -88,8 +101,20 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
+        jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
+        jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -136,7 +161,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,6 +209,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         obj.setLogin(jTextField3.getText());
         obj.setSenha(jPasswordField1.getText());
         obj.setPerfil(jTextField4.getText());
+        
         if((jTextField5.getText().isEmpty())|| (jTextField2.getText().isEmpty()) || (jTextField3.getText().isEmpty())|| (jPasswordField1.getPassword().length == 0)||(jTextField4.getText().isEmpty())|| jComboBox1.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Preencha todos os Campos Obrigatórios");
         } else{
@@ -196,6 +222,50 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (jTextField5.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Informe o ID do Usuário");
+            jTextField5.requestFocus();
+        }else{
+            UsuarioDAO dao = new UsuarioDAO();
+            Usuario usuario = new Usuario(); 
+            usuario = dao.buscarUsuario(Integer.parseInt(jTextField5.getText()));
+            jTextField4.setText (usuario.getUsuario());
+            jTextField3.setText (usuario.getLogin());
+            jTextField2.setText (usuario.getFone());
+            jPasswordField1.setText (usuario.getSenha());
+            jComboBox1.setSelectedItem(usuario.getPerfil());
+        }
+        jButton2.setEnabled(false);
+        jButton4.setEnabled(true);
+        jButton3.setEnabled(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Usuario obj = new Usuario();
+        obj.setUsuario(jTextField5.getText());
+        obj.setFone(jTextField2.getText());
+        obj.setLogin(jTextField3.getText());
+        obj.setSenha(jPasswordField1.getText());
+        obj.setPerfil(jTextField4.getText());
+        
+        if((jTextField5.getText().isEmpty())|| (jTextField2.getText().isEmpty()) || (jTextField3.getText().isEmpty())|| (jPasswordField1.getPassword().length == 0)||(jTextField4.getText().isEmpty())|| jComboBox1.getSelectedItem().equals(" ")) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os Campos Obrigatórios");
+        } else{
+            UsuarioDAO dao = new UsuarioDAO();
+            dao.alterarUsuario(obj);
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

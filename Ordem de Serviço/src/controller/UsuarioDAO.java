@@ -95,6 +95,63 @@ public class UsuarioDAO {
         }
         
     }
+    public Usuario buscarUsuario(int idUser) {
+    String sql = "SELECT * FROM tbusuarios WHERE iduser = ?;";
     
-    
+    try (Connection conexao = ModuloConexao.conectar();
+         PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        
+        stmt.setInt(1, idUser);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            Usuario usuario = new Usuario();
+            usuario.setIdUser(rs.getInt("iduser"));
+            usuario.setUsuario(rs.getString("usuario"));
+            usuario.setFone(rs.getString("fone"));
+            usuario.setLogin(rs.getString("login"));
+            usuario.setSenha(rs.getString("senha"));
+            usuario.setPerfil(rs.getString("perfil"));
+            rs.close(); // fechar ResultSet manualmente
+            return usuario;
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+        }
+        rs.close(); // fechar ResultSet mesmo se não encontrou
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    return null;
+    }
+    public void alterarUsuario(Usuario obj){
+        try{
+            String sql = "update tbusuarios set usuario=?, fone=?, login=?, senha=?, perfil=? where iduser=?";
+            conexao = ModuloConexao.conectar();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, obj.getUsuario());
+            stmt.setString(2, obj.getFone());
+            stmt.setString(3, obj.getLogin());
+            stmt.setString(4,obj.getSenha());
+            stmt.setString(5, obj.getPerfil());
+            stmt.setInt(6, obj.getIdUser());
+            
+            stmt.execute();
+            stmt.close();
+            JOptionPane.showMessageDialog(null, "Alterado com Sucesso!");
+            
+        }catch (SQLIntegrityConstraintViolationException el){
+            JOptionPane.showMessageDialog(null,"Login em uso.\nEscolha outro login");
+        }catch (HeadlessException | SQLException e){
+            JOptionPane.showMessageDialog(null,e);
+        }finally {
+            try{
+                conexao.close();
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+        
+    }
 }

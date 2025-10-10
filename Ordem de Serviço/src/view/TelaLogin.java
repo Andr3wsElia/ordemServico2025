@@ -151,6 +151,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1.setText("Usuário");
 
         jBtnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jBtnLogin.setMnemonic('e');
         jBtnLogin.setText("Entrar");
         jBtnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,10 +195,10 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(jTxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlblStatus)
-                .addGap(28, 28, 28))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnLogin)
+                    .addComponent(jlblStatus))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(335, 187));
